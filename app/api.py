@@ -18,10 +18,6 @@ def _auth(authorization: str | None):
     if token != API_TOKEN:
         raise HTTPException(401, "Invalid token")
 
-@app.get("/healthz")
-def healthz():
-    return {"ok": True}
-
 @app.get("/messages")
 def list_messages(authorization: str | None = Header(None), limit: int = 100) :
     _auth(authorization)
