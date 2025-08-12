@@ -1,9 +1,10 @@
 from sqlalchemy import Column, String, Integer, DateTime, Text
 from datetime import datetime
 from .base import Base
+from app.constants.database import message
 
 class Message(Base):
-    __tablename__ = "messages"
+    __tablename__ = message.TABLE_NAME
     id = Column(String, primary_key=True)
     received_at = Column(DateTime, default=datetime.utcnow, index=True)
     from_addr = Column(String)

@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException, Header
 from fastapi.responses import FileResponse
 from sqlalchemy import select
 from app.models import get_session_factory, Message
+from app.constants.database import message
 
 API_TOKEN = os.getenv("API_TOKEN", "change_me")
 DB_PATH = os.getenv("DB_PATH", "./localdata/messages.db")

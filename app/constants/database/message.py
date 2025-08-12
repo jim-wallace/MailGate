@@ -1,0 +1,10 @@
+TABLE_NAME = "messages"
+
+COL_ID = "id"
+COL_RECEIVED_AT = "received_at"
+COL_FROM_ADDR = "from_addr"
+COL_TO_ADDRS = "to_addrs"
+COL_SUBJECT = "subject"
+COL_SIZE = "size_bytes"
+COL_EML_PATH = "eml_path"
+COL_HAS_ATTACHMENTS = "has_attachments"
