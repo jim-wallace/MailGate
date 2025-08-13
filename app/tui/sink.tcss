@@ -1,0 +1,12 @@
+#sidebar {
+    width: 62%;
+}
+
+#preview {
+    width: 38%;
+    border-left: solid gray;
+}
+
+#status {
+    height: 3;
+}

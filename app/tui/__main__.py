@@ -38,11 +38,7 @@ def read_text_part(eml_path: str) -> tuple[dict, str]:
     return headers, body or ""
 
 class SinkTUI(App):
-    CSS = """
-    #sidebar { width: 62%; }
-    #preview { width: 38%; border-left: solid gray; }
-    #status { height: 3; }
-    """
+    CSS_PATH = "sink.tcss"
 
     BINDINGS = [
         ("q", "quit", "Quit"),
