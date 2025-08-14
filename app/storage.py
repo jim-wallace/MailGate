@@ -3,6 +3,7 @@ import json, os, shutil
 from pathlib import Path
 from sqlalchemy import select, delete
 from app.models import get_session_factory, Message
+from app.constants.database import message
 
 class Store:
     def __init__(self, db_path: str, store_dir: str):
@@ -18,14 +19,14 @@ class Store:
             ).scalars().all()
             for m in rows:
                 yield {
-                    "id": m.id,
-                    "received_at": m.received_at,  # datetime (not string)
-                    "from_addr": m.from_addr or "",
-                    "to_addrs": ", ".join(json.loads(m.to_addrs or "[]")),
-                    "subject": m.subject or "",
-                    "size": m.size_bytes or 0,
-                    "eml_path": m.eml_path or "",
-                    "has_attachments": bool(m.has_attachments),
+                    message.COL_ID: m.id,
+                    message.COL_RECEIVED_AT: m.received_at,
+                    message.COL_FROM_ADDR: m.from_addr or "",
+                    message.COL_TO_ADDRS: ", ".join(json.loads(m.to_addrs or "[]")),
+                    message.COL_SUBJECT: m.subject or "",
+                    message.COL_SIZE: m.size_bytes or 0,
+                    message.COL_EML_PATH: m.eml_path or "",
+                    message.COL_HAS_ATTACHMENTS: bool(m.has_attachments),
                 }
 
     def get_message(self, mid: str) -> dict | None:
@@ -34,14 +35,14 @@ class Store:
             if not m:
                 return None
             return {
-                "id": m.id,
-                "received_at": m.received_at,  # datetime (or None)
-                "from_addr": m.from_addr or "",
-                "to_addrs": json.loads(m.to_addrs or "[]"),
-                "subject": m.subject or "",
-                "size": m.size_bytes or 0,
-                "eml_path": m.eml_path or "",
-                "has_attachments": bool(m.has_attachments),
+                message.COL_ID: m.id,
+                message.COL_RECEIVED_AT: m.received_at,  # datetime (or None)
+                message.COL_FROM_ADDR: m.from_addr or "",
+                message.COL_TO_ADDRS: json.loads(m.to_addrs or "[]"),
+                message.COL_SUBJECT: m.subject or "",
+                message.COL_SIZE: m.size_bytes or 0,
+                message.COL_EML_PATH: m.eml_path or "",
+                message.COL_HAS_ATTACHMENTS: bool(m.has_attachments),
             }
 
     def delete_message(self, mid: str) -> bool:

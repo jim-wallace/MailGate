@@ -4,6 +4,7 @@ from fastapi import FastAPI, HTTPException, Header
 from fastapi.responses import FileResponse
 from sqlalchemy import select
 from app.models import get_session_factory, Message
+from app.constants.database import message
 
 API_TOKEN = os.getenv("API_TOKEN", "change_me")
 DB_PATH = os.getenv("DB_PATH", "./localdata/messages.db")
@@ -17,10 +18,6 @@ def _auth(authorization: str | None):
     token = authorization.split(" ", 1)[1]
     if token != API_TOKEN:
         raise HTTPException(401, "Invalid token")
-
-@app.get("/healthz")
-def healthz():
-    return {"ok": True}
 
 @app.get("/messages")
 def list_messages(authorization: str | None = Header(None), limit: int = 100) :
